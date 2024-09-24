@@ -1,0 +1,58 @@
+import time
+
+def cronometro():
+    print("---- Cronômetro ----")
+    print("Comandos: ")
+    print(" - 'iniciar' para começar")
+    print(" - 'pausar' para pausar")
+    print(" - 'continuar' para continuar")
+    print(" - 'resetar' para reiniciar")
+    print(" - 'sair' para encerrar o cronômetro")
+
+    estado = 'parado'
+    tempo_inicial = 0
+    tempo_total = 0
+
+    while True:
+        comando = input("\nDigite o comando: ").strip().lower()
+
+        if comando == 'iniciar':
+            if estado == 'parado':
+                tempo_inicial = time.time()
+                estado = 'rodando'
+                print("Cronômetro iniciado!")
+            else:
+                print("O cronômetro já está em execução.")
+        
+        elif comando == 'pausar':
+            if estado == 'rodando':
+                tempo_total += time.time() - tempo_inicial
+                estado = 'pausado'
+                print(f"Cronômetro pausado. Tempo: {tempo_total:.2f} segundos")
+            else:
+                print("O cronômetro não está em execução.")
+
+        elif comando == 'continuar':
+            if estado == 'pausado':
+                tempo_inicial = time.time()
+                estado = 'rodando'
+                print("Cronômetro continuado!")
+            else:
+                print("O cronômetro não está pausado.")
+
+        elif comando == 'resetar':
+            estado = 'parado'
+            tempo_total = 0
+            print("Cronômetro resetado!")
+
+        elif comando == 'sair':
+            if estado == 'rodando':
+                tempo_total += time.time() - tempo_inicial
+            print(f"Cronômetro encerrado. Tempo final: {tempo_total:.2f} segundos")
+            break
+
+        else:
+            print("Comando inválido. Tente novamente.")
+
+if __name__ == "__main__":
+    cronometro()
